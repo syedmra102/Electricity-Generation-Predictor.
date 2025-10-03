@@ -75,7 +75,6 @@ prediction = model.predict(input_data)[0]
 st.subheader(f"Predicted Electricity Generation: {prediction:.2f} kW")
 
 # Step 5: Requirements File Banaein
-%%writefile /content/drive/MyDrive/electricity_app/requirements.txt
 streamlit
 scikit-learn
 pandas
