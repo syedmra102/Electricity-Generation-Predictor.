@@ -3,7 +3,7 @@ from google.colab import drive
 drive.mount('/content/drive', force_remount=True)
 
 # Folder banaein
-import os
+import os 
 folder_path = '/content/drive/MyDrive/electricity_app'
 if not os.path.exists(folder_path):
     os.makedirs(folder_path)
