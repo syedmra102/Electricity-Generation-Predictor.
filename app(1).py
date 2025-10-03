@@ -45,14 +45,14 @@ print("Model saved: /content/drive/MyDrive/electricity_app/model.pkl")
 
 # Step 4: Streamlit App Banaein (app.py)
 
-import streamlit as st
+iimport streamlit as st
 import pickle
 import numpy as np
 
 # Load model
 @st.cache_resource
 def load_model():
-    with open('/mount/src/electricity-generation-predictor/model.pkl', 'rb') as f:
+    with open('model.pkl', 'rb') as f:
         return pickle.load(f)
 
 # Main app
