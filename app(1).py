@@ -53,7 +53,7 @@ import numpy as np
 # Load model
 @st.cache_resource
 def load_model():
-    with open('/content/drive/MyDrive/electricity_app/model.pkl', 'rb') as f:
+    with open('/mount/src/electricity-generation-predictor/model.pkl', 'rb') as f:
         return pickle.load(f)
 
 # Main app
