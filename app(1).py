@@ -45,7 +45,7 @@ print("Model saved: /content/drive/MyDrive/electricity_app/model.pkl")
 
 # Step 4: Streamlit App Banaein (app.py)
 
-iimport streamlit as st
+import streamlit as st
 import pickle
 import numpy as np
 
