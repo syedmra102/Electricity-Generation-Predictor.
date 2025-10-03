@@ -1,5 +1,4 @@
 # Step 1: Environment Setup - Libraries install karein aur Drive mount karein
-!pip install -q streamlit scikit-learn pandas numpy matplotlib
 from google.colab import drive
 drive.mount('/content/drive', force_remount=True)
 
