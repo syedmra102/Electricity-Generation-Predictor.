@@ -1,17 +1,11 @@
-# Step 1: Environment Setup - Libraries install karein aur Drive mount karein
-from google.colab import drive
-drive.mount('/content/drive', force_remount=True)
-
-# Folder banaein
-import os 
-folder_path = '/content/drive/MyDrive/electricity_app'
-if not os.path.exists(folder_path):
-    os.makedirs(folder_path)
-    print("Folder bana diya: /content/drive/MyDrive/electricity_app")
-
-# Step 2: Dummy Dataset Banaein (5 sources ka data - real data replace karo)
 import pandas as pd
 import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+import pickle
+import streamlit as st
+
+# Step 1: Dummy Dataset Banaein (5 sources ka data - real data replace karo)
 data = {
     'sun_temperature': np.random.uniform(20, 50, 500),  # Sunlight temperature in Celsius
     'water_flow': np.random.uniform(1, 10, 500),       # Water flow in m3/s
@@ -21,35 +15,19 @@ data = {
     'electricity_output': np.random.uniform(100, 1000, 500)  # Electricity output in kW (simulated)
 }  # Real data: Use P = A * r * H * PR (solar), η * ρ * g * h * Q (hydro) formulas
 df = pd.DataFrame(data)
-df.to_csv('/content/drive/MyDrive/electricity_app/electricity_db.csv', index=False)
-print("Dataset saved: /content/drive/MyDrive/electricity_app/electricity_db.csv")
+# Dataset save karne ke liye alag se file mein rakho (GitHub pe CSV upload karo)
 
-# Step 3: Model Train Karein (Random Forest Regression)
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
-import pickle
-
-df = pd.read_csv('/content/drive/MyDrive/electricity_app/electricity_db.csv')
+# Step 2: Model Train Karein (Random Forest Regression)
 X = df.drop('electricity_output', axis=1)
 y = df['electricity_output']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
-accuracy = model.score(X_test, y_test)
-print(f"Model R2 Score: {accuracy*100:.2f}%")
+# Model save karne ke liye alag se file mein rakho (GitHub pe model.pkl upload karo)
 
-with open('/content/drive/MyDrive/electricity_app/model.pkl', 'wb') as f:
-    pickle.dump(model, f)
-print("Model saved: /content/drive/MyDrive/electricity_app/model.pkl")
-
-# Step 4: Streamlit App Banaein (app.py)
-
-import streamlit as st
-import pickle
-import numpy as np
-
-# Load model
+# Step 3: Streamlit App (Yeh part Streamlit Cloud pe chalega)
+# Load model (GitHub pe upload kiya hua model load hoga)
 @st.cache_resource
 def load_model():
     with open('model.pkl', 'rb') as f:
@@ -73,16 +51,3 @@ input_data = np.array([[sun_temp, water_flow, wind_speed, plastic_mass, geotherm
 prediction = model.predict(input_data)[0]
 
 st.subheader(f"Predicted Electricity Generation: {prediction:.2f} kW")
-
-# Step 5: Requirements File Banaein
-streamlit
-scikit-learn
-pandas
-numpy
-
-# Step 6: Files Download Karo (GitHub ke liye)
-from google.colab import files
-files.download('/content/drive/MyDrive/electricity_app/app.py')
-files.download('/content/drive/MyDrive/electricity_app/model.pkl')
-files.download('/content/drive/MyDrive/electricity_app/electricity_db.csv')
-files.download('/content/drive/MyDrive/electricity_app/requirements.txt')
