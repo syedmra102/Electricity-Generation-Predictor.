@@ -2,4 +2,4 @@ from google.colab import files
 files.download('/content/drive/MyDrive/electricity_app/app.py')
 files.download('/content/drive/MyDrive/electricity_app/model.pkl')
 files.download('/content/drive/MyDrive/electricity_app/electricity_db.csv')
-files.download('/content/drive/MyDrive/electricity_app/requirements.txt')
+files.download('/content/drive/MyDrive/electricity_app/requirements.txt') 
